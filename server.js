@@ -172,6 +172,18 @@ app.post("/logout", (req, res) => {
 });
 
 
+//post for user input
+var toShow = {'first':''};
+app.post("/userInput", (req, res) =>{
+  var uRequest = req.body['userData'];
+  toShow['first'] = uRequest
+  console.log(toShow)
+
+  res.redirect('/')
+
+})
+
+
 
 
 app.listen(PORT, () => {
