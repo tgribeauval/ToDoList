@@ -51,9 +51,25 @@ app.use(express.static("public"));
 // Mount all resource routes
 app.use("/api/users", usersRoutes(knex));
 
+let loggedIn = false;
 // Home page
 app.get("/", (req, res) => {
-  res.render("index");
+  if(req.session.user_id === undefined){
+    res.redirect('/login')
+    return;
+  }else{
+    knex("users")
+    .where("id", req.session.user_id)
+    .then((users) => {
+      console.log("users", users)
+      console.log("userid", users[0].id)
+      if (users[0].id === null) {
+        res.redirect("/login");
+      } else {
+         res.render("index");
+      }
+    })
+  }
 });
 
 //get for /login
@@ -72,14 +88,14 @@ app.get("/login", (req, res) => {
   knex("users")
     .where("email", req.body.email)
     .then((users) => {
-
-      if(users) {
+      if(users.length !== 0) {
         let password = users[0].password;
         let checkedPassword = bcrypt.compareSync(req.body.password, password);
         if (checkedPassword) {
           req.session.user_id = users[0].id;
           console.log("cookie",req.session)
           console.log("users", users)
+          loggedIn = true;
           res.render("index");
         }
       } else {
@@ -167,7 +183,7 @@ app.post("/profile/:id/delete", (req, res) => {
 
 app.post("/logout", (req, res) => {
 
-  req.session = null;
+  req.session.destroy();
   res.status(301).redirect('/login');
 });
 
