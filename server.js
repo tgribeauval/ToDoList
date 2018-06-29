@@ -17,6 +17,19 @@ const knexLogger  = require('knex-logger');
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
 
+
+const session     = require("express-session");
+const bcrypt      = require('bcrypt-nodejs');
+
+//Allows to use cookie session
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {maxAge: 60000}
+  //store: connect to storesession in database?
+}));
+
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
@@ -42,6 +55,67 @@ app.use("/api/users", usersRoutes(knex));
 app.get("/", (req, res) => {
   res.render("index");
 });
+
+//get for /login
+
+app.get("/login", (req, res) => {
+
+  res.status(200).render("login");
+
+});
+
+//post for login
+ app.post("/login", (req, res) => {
+
+   let email = req.body.email;
+
+  knex("users")
+    .where("email", req.body.email)
+    .then((users) => {
+
+      if(users) {
+        let password = users[0].password;
+        let checkedPassword = bcrypt.compareSync(req.body.password, password);
+        if (checkedPassword) {
+          req.session.user_id = users[0].id;
+          console.log("cookie",req.session)
+          console.log("users", users)
+          res.render("index");
+        }
+      } else {
+        res.redirect('/login');
+      }
+    });
+  });
+
+//post for register
+
+app.post("/register", (req, res) => {
+​
+ // if (req.body.email && req.body.password) {
+   const salt = bcrypt.genSaltSync(10);
+   const hash = bcrypt.hashSync(req.body.password, salt);
+​
+  knex("users").insert({
+   email: req.body.email,
+   password: hash
+  })
+  .returning("id")
+  .then((userid) => {
+   req.session.user_id = userid;
+   res.redirect("/");
+  })
+​
+});
+
+
+
+
+
+
+
+
+
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
