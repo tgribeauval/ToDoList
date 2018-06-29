@@ -110,9 +110,69 @@ app.post("/register", (req, res) => {
 
 
 
+//get for profile page
+
+app.get("/profile", (req, res) => {
+
+   const templateVars = {
+    id: req.session.user_id
+   };
+
+   console.log(templateVars);
+
+  res.status(200).render("profile", templateVars);
+
+});
+
+app.post("/profile/:id", (req, res) => {
+
+  const updatedEmail = req.body.email
+  console.log("updating")
+
+  const salt = bcrypt.genSaltSync(10);
+  const updatedPassword = bcrypt.hashSync(req.body.password, salt);
+
+  console.log(req.body)
+
+  knex
+    ("users")
+    .where("id", Number(req.params.id))
+    .update({
+      email: updatedEmail,
+      password: updatedPassword
+    })
+    .then((id) => {
+      console.log(id)
+      res.status(301).redirect("/");
+    });
+
+});
+
+app.post("/profile/:id/delete", (req, res) => {
+
+  knex
+    ("users")
+    .del()
+    .where("id", Number(req.params.id))
+    // console.log("Email", email)
+    // console.log("password", password)
+    // console.log("RBE", req.body.email)
+    //   console.log("RBP", req.body.password)
+    .then((users) => {
+
+    res.status(301).redirect("/login");
+
+  });
+});
 
 
+//post for logout
 
+app.post("/logout", (req, res) => {
+
+  req.session = null;
+  res.status(301).redirect('/login');
+});
 
 
 
