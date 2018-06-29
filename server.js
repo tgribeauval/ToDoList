@@ -90,13 +90,12 @@ app.get("/login", (req, res) => {
 
 //post for register
 
-app.post("/register", (req, res) => {
-​
- // if (req.body.email && req.body.password) {
-   const salt = bcrypt.genSaltSync(10);
-   const hash = bcrypt.hashSync(req.body.password, salt);
-​
-  knex("users").insert({
+app.post("/register",(req,res)=>{
+  const salt = bcrypt.genSaltSync(10);
+  const hash = bcrypt.hashSync(req.body.password, salt);
+
+  knex("users")
+  .insert({
    email: req.body.email,
    password: hash
   })
@@ -105,9 +104,7 @@ app.post("/register", (req, res) => {
    req.session.user_id = userid;
    res.redirect("/");
   })
-​
-});
-
+})
 
 
 //get for profile page
