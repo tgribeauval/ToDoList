@@ -14,5 +14,10 @@ module.exports = (knex) => {
     });
   });
 
+  router.get("/test", (req, res) => {
+    res.json({})
+  });
+
+
   return router;
 }
