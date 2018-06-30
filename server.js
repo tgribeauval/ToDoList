@@ -196,6 +196,8 @@ app.post("/logout", (req, res) => {
 
 
 app.post("/userInput", (req, res) =>{
+
+
  var uRequest = req.body['userData'];
  var uOutput = categoryFunc.categorizer(uRequest);
 
@@ -212,7 +214,11 @@ app.post("/userInput", (req, res) =>{
 
 app.get("/mylist", (req, res) => {
   let user_id = req.session.user_id
-  res.render("list")
+  if (!user_id){
+    res.redirect("/login")
+  }
+  else{
+  res.render("list")}
  })
 
 
