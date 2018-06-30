@@ -14,7 +14,7 @@ var categorizer = (text) => {
 var res = text.split(" ");
 
 var toRemove = '';
-var category ='';
+var category ='other';
 var AddToCat = '';
 
 

@@ -19,10 +19,10 @@ const usersRoutes = require("./routes/users");
 const listRoutes = require("./routes/mylist");
 
 const categoryFunc = require('./cateFunction')
-
-
 const session     = require("express-session");
 const bcrypt      = require('bcrypt-nodejs');
+const cookieParser = require('cookie-parser');
+
 
 //Allows to use cookie session
 app.use(session({
@@ -32,6 +32,10 @@ app.use(session({
   cookie: {maxAge: 60000}
   //store: connect to storesession in database?
 }));
+
+
+
+
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -68,8 +72,6 @@ app.get("/", (req, res) => {
     knex("users")
     .where("id", req.session.user_id)
     .then((users) => {
-      console.log("users", users)
-      console.log("userid", users[0].id)
       if (users[0].id === null) {
         res.redirect("/login");
       } else {
@@ -83,9 +85,34 @@ app.get("/", (req, res) => {
 
 app.get("/login", (req, res) => {
 
-  res.status(200).render("login");
+  return res.status(200).render("login");
 
 });
+
+app.get("/update_category", (req, res)=>{
+
+  knex("todo").where({
+    'user_id': req.session.user_id,
+    'content': req.query.content
+  }).update({
+    'category': req.query.category
+  }).then(()=> {
+    res.redirect("/mylist")
+  })
+
+})
+
+app.get("/delete_item", (req, res)=>{
+
+  knex("todo").where({
+    'user_id': req.session.user_id,
+    'content': req.query.content
+  }).del().then(()=> {
+    res.redirect("/mylist")
+  })
+
+})
+
 
 //post for login
  app.post("/login", (req, res) => {
@@ -100,8 +127,6 @@ app.get("/login", (req, res) => {
         let checkedPassword = bcrypt.compareSync(req.body.password, password);
         if (checkedPassword) {
           req.session.user_id = users[0].id;
-          console.log("cookie",req.session)
-          console.log("users", users)
           loggedIn = true;
           res.render("index");
         }
@@ -117,6 +142,21 @@ app.post("/register",(req,res)=>{
   const salt = bcrypt.genSaltSync(10);
   const hash = bcrypt.hashSync(req.body.password, salt);
 
+  if(!req.body.email || !req.body.password){
+    invalid = true;
+    return res.redirect('/login')
+  }
+
+  knex.select().table('users')
+  .then((result)=>{
+    for (let user of result){
+      if (req.body.email === user.email){
+
+        return res.redirect('/login')
+      }
+    }
+  })
+
   knex("users")
   .returning("id")
   .insert({
@@ -124,11 +164,10 @@ app.post("/register",(req,res)=>{
    password: hash
   })
   .then((userid) => {
-    console.log("Did we get here?");
-    console.log(userid)
     req.session.user_id = userid[0];
-    res.redirect("/");
-  })
+    return res.redirect("/");
+  });
+
 })
 
 
@@ -149,12 +188,9 @@ app.get("/profile", (req, res) => {
 app.post("/profile/:id", (req, res) => {
 
   const updatedEmail = req.body.email
-  console.log("updating")
 
   const salt = bcrypt.genSaltSync(10);
   const updatedPassword = bcrypt.hashSync(req.body.password, salt);
-
-  console.log(req.body)
 
   knex
     ("users")
