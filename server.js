@@ -143,30 +143,34 @@ app.post("/register",(req,res)=>{
   const hash = bcrypt.hashSync(req.body.password, salt);
 
   if(!req.body.email || !req.body.password){
-    invalid = true;
+    console.log("no data")
     return res.redirect('/login')
   }
 
-  knex.select().table('users')
+  knex.select().table('users').where({'email': req.body.email})
   .then((result)=>{
-    for (let user of result){
-      if (req.body.email === user.email){
-
-        return res.redirect('/login')
+      if (result.length > 1){
+        console.log(result)
+        return res.redirect('/')
       }
-    }
+      else{
+         knex("users")
+        .returning("id")
+        .insert({
+         email: req.body.email,
+         password: hash
+        })
+        .then((userid) => {
+          console.log("Get Here NE ")
+          req.session.user_id = userid[0];
+          return res.redirect("/mylist");
+        });
+      }
+
+
   })
 
-  knex("users")
-  .returning("id")
-  .insert({
-   email: req.body.email,
-   password: hash
-  })
-  .then((userid) => {
-    req.session.user_id = userid[0];
-    return res.redirect("/");
-  });
+
 
 })
 

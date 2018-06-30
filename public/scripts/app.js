@@ -50,7 +50,7 @@ $(function() {
     <li><a href="/update_category?content=${content}&category=to_buy">To buy</a></li>
     <li><a href="/update_category?content=${content}&category=to_watch">To watch</a></li>
     <li><a href="/update_category?content=${content}&category=to_read">To read</a></li>
-    <li><a href="/update_category?content=${content}&category=other">To read</a></li>
+    <li><a href="/update_category?content=${content}&category=other">other</a></li>
 
     <li role="separator" class="divider"></li>
     <li><a href="/delete_item?content=${content}">Delete</a></li>
