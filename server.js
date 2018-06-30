@@ -93,7 +93,6 @@ app.get("/login", (req, res) => {
 app.post("/register",(req,res)=>{
   const salt = bcrypt.genSaltSync(10);
   const hash = bcrypt.hashSync(req.body.password, salt);
-
   knex("users")
   .insert({
    email: req.body.email,
@@ -105,8 +104,6 @@ app.post("/register",(req,res)=>{
    res.redirect("/");
   })
 })
-
-
 //get for profile page
 
 app.get("/profile", (req, res) => {
