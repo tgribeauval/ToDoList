@@ -7,10 +7,18 @@ const cookieSession = require('cookie-session');
 
 module.exports = (knex) => {
 
-  listRoutes.get("/", (req, res) => {
-    let user_id = req.session.user_id
-    res.render("list")
+ listRoutes.get('/items', (req, res) =>{
+   knex('todo')
+   .select("*")
+   .from('todo')
+   .where('user_id', req.session.user_id)
+   .then((results) => {
+     console.log("got here buddy")
+     console.log(results);
+     res.json(results);
    })
+ })
+
 
   return listRoutes;
 }

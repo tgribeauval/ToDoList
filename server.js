@@ -162,7 +162,7 @@ app.post("/profile/:id", (req, res) => {
       password: updatedPassword
     })
     .then((id) => {
-      console.log(id)
+
       res.status(301).redirect("/");
     });
 
@@ -194,13 +194,26 @@ app.post("/logout", (req, res) => {
   res.status(301).redirect('/login');
 });
 
-var uRequest='first';
+
 app.post("/userInput", (req, res) =>{
- uRequest = req.body['userData'];
- categoryFunc.categorizer(uRequest)
- res.redirect('/mylist')
+ var uRequest = req.body['userData'];
+ var uOutput = categoryFunc.categorizer(uRequest);
+
+ knex('todo').insert({
+  user_id: req.session.user_id,
+  category: uOutput[0],
+  content: uOutput[1]
+ }).then(()=>{
+  res.redirect('/mylist')
+ })
+
 })
 
+
+app.get("/mylist", (req, res) => {
+  let user_id = req.session.user_id
+  res.render("list")
+ })
 
 
 app.listen(PORT, () => {
