@@ -16,6 +16,9 @@ const knexLogger  = require('knex-logger');
 
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
+const listRoutes = require("./routes/mylist");
+
+const categoryFunc = require('./cateFunction')
 
 
 const session     = require("express-session");
@@ -50,6 +53,10 @@ app.use(express.static("public"));
 
 // Mount all resource routes
 app.use("/api/users", usersRoutes(knex));
+
+app.use("/mylist", listRoutes(knex));
+
+
 
 let loggedIn = false;
 // Home page
@@ -187,18 +194,12 @@ app.post("/logout", (req, res) => {
   res.status(301).redirect('/login');
 });
 
-
-//post for user input
-var toShow = {'first':''};
+var uRequest='first';
 app.post("/userInput", (req, res) =>{
-  var uRequest = req.body['userData'];
-  toShow['first'] = uRequest
-  console.log(toShow)
-
-  res.redirect('/')
-
+ uRequest = req.body['userData'];
+ categoryFunc.categorizer(uRequest)
+ res.redirect('/mylist')
 })
-
 
 
 
