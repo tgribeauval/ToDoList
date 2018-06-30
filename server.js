@@ -40,6 +40,7 @@ app.use(knexLogger(knex));
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use("/styles", sass({
   src: __dirname + "/styles",
   dest: __dirname + "/public/styles",
@@ -96,7 +97,7 @@ app.get("/login", (req, res) => {
           console.log("cookie",req.session)
           console.log("users", users)
           loggedIn = true;
-          res.render("index");
+          res.redirect("/");
         }
       } else {
         res.redirect('/login');

@@ -2,30 +2,163 @@
 <html lang="en">
   <head>
     <title>Home Page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/styles/style.css" type="text/css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
+    <script type="text/javascript" src="/scripts.nav.js"></script>
+
   </head>
+
   <body>
-    <header>
-      <form method="GET" action="/profile">
-        <button name="profile" type = "submit">PROFILE</button>
-      </form>
-    </header>
-    <h1>SEARCH FORM</h1>
-    <p>
-      <form action="/userInput" method="POST">
-      <input id ="city" value="Add to list" name ="userData"></input>
-      </form>
 
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <!-- <a class="navbar-brand" href="#"><img src="/styles/img/logo.png" alt="logo" class="img-thumbnail"></a> -->
+          <a class="navbar-brand" href="#">2D | TO-DO LIST</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#about">ABOUT</a></li>
+            <li><a href="/profile">PROFILE</a></li>
+            <li><a href="#contact">CONTACT US</a></li>
+            <li><a href="#">LOGOUT</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
 
-    </p>
-    <footer>
-          <form method="POST" action="/logout">
-          <button name="logout" type = "submit">LOGOUT</button>
+    <div class="jumbotron text-center">
+        <img src="/styles/img/logo.png" class="img-responsive">
+        <h1>SEARCH FORM</h1>
+        <p>Help Us Help You</p>
+        <form class="form-inline">
+          <div class="input-group">
+            <input type="search" class="form-control" size="50" placeholder="SEARCH" required>
+            <div class="input-group-btn">
+              <button type="button" class="btn btn-danger">ENTER</button>
+            </div>
+          </div>
         </form>
-    </footer>
+    </div>
+
+    <div id="about" class="container-fluid text-center">
+      <h2>HOW IT WORKS</h2>
+      <br>
+      <div class="row">
+        <div class="col-sm-3">
+          <span><i class="fas fa-dollar-sign logo-small"></i></span>
+          <h4>BUY</h4>
+          <p>Lorem Ipsum dolor sit amet .. </p>
+        </div>
+        <div class="col-sm-3">
+          <span><i class="fas fa-utensils logo-small"></i></span>
+          <h4>EAT</h4>
+          <p>Lorem Ipsum dolor sit amet .. </p>
+        </div>
+        <div class="col-sm-3">
+          <span><i class="fas fa-tv logo-small"></i></span>
+          <h4>WATCH</h4>
+          <p>Lorem Ipsum dolor sit amet .. </p>
+        </div>
+        <div class="col-sm-3">
+          <span><i class="fas fa-book logo-small"></i></span>
+          <h4>READ</h4>
+          <p>Lorem Ipsum dolor sit amet .. </p>
+        </div>
+
+    <div id="contact" class="container-fluid">
+      <h2 class="text-center">CONTACT</h2>
+        <p>Contact us & we'll get back to you as soon as possible!</p>
+          <div class="row">
+            <div class="col-sm-2">
+            </div>
+            <div class="col-sm-4 form-group">
+              <input class="form-control" id="name" name="name" placeholder="Name" type="text" required>
+            </div>
+            <div class="col-sm-4 form-group">
+             <input class="form-control" id="email" name="email" placeholder="Email" type="email" required>
+            </div>
+            <div class="col-sm-2">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-2">
+            </div>
+            <div class="col-sm-8">
+              <textarea class="form-control" id="comments" name="comments" placeholder="Comments" rows="5"></textarea><br>
+            </div>
+            <div class="col-sm-2">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-2">
+            </div>
+            <div class="col-sm-8 form-group">
+              <button class="btn btn-default" type="submit">SEND</button>
+            </div>
+            <div class="col-sm-2">
+            </div>
+          </div>
+
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="col-sm-4">
+            <p><span><i class="fas fa-map-marker-alt"></i></span>Montreal, QC</p>
+          </div>
+          <div class="col-sm-4">
+            <p><span><i class="fas fa-mobile-alt"></i></span>+1 888 123 555</p>
+          </div>
+          <div class="col-sm-4">
+            <p><span><i class="far fa-envelope"></i></span>hello@tdlist.com</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
   </body>
+
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
