@@ -5,30 +5,43 @@
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
-    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous"> <!--pure CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous"> 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
   </head>
   <body>
-    <h1>This is where you log in OR register</h1>
-    <h2>Returning User? LOGIN HERE:</h2>
     <!-- when user clicks button, populates the login form -->
-    <form action="/login" method="POST" class="pure-form">
-    <fieldset>
-            <input type="text" class="pure-input-rounded" name="email" placeholder="Email" />
-            <input class="pure-input-rounded" type="password" name="password" placeholder ="Password" />
-            <button type="submit">LOGIN</button>
-    </fieldset>
-  </form>
-    <h2>Need an Account? REGISTER HERE:</h2>
+    <div class="loginbox">
+      <form action="/login" method="POST" class="pure-form">
+        <fieldset>
+          <input type="text" class="pure-input-rounded" name="email" placeholder="Email" />
+          <input class="pure-input-rounded" type="password" name="password" placeholder ="Password" />
+          <div class="buttonpanda">
+            <button class="logregbutton" type="submit">Sign in</button>
+          </div>
+        </fieldset>
+      </form>
+      <div id="panda">
+        <p class="noaccount"> Don't have an account? </p>
+        <button id="showregister"> Sign Up </button>
+        <script>
+        $("#showregister").click(function() {
+          $(".loginbox").replaceWith($(".registerbox"));
+          $(".loginbox").css('visibility', 'visible');
+          $(".registerbox").css('visibility', 'visible');
+        });
+        </script>
+      </div>
+    </div>
     <!-- when user clicks button, populates a register form -->
-     <form action="/register" method="POST" class="pure-form">
-    <fieldset>
-            <input type="text" class="pure-input-rounded" name="email" placeholder="Email" />
-            <input class="pure-input-rounded" type="password" name="password" placeholder ="Password" />
-            <button type="submit">REGISTER</button>
-    </fieldset>
-  </form>
-    <h1>This is where you log in.</h1>
-  </body>
+    <div class="registerbox">
+      <form action="/register" method="POST" class="pure-form">
+        <fieldset>
+          <input type="text" class="pure-input-rounded" name="email" placeholder="Email" />
+          <input class="pure-input-rounded" type="password" name="password" placeholder ="Password" />
+          <button class="logregbutton" type="submit">Sign Up</button>
+        </fieldset>
+      </form>
+     </div>
+    </body>
 </html>

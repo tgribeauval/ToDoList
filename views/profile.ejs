@@ -9,22 +9,21 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous"> <!--Font Awesome Icons -->
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
+
   </head>
   <body>
-    <h1>This is where you view your profile - including editing details.</h1>
-   <form class="pure-form" method="POST" action="/profile/<%= id %>">
-    <fieldset>
+    <div id="overlay"></div>
+      <div class="myprofilebox">
+        <form class="pure-form" method="POST" action="/profile/<%= id %>">
+          <fieldset>
             <input type="text" class="pure-input-rounded" name="email" placeholder="Email" />
             <input class="pure-input-rounded" type="password" name="password" placeholder ="Password" />
-            <button class="pure-button" >
-            <i class="far fa-edit"></i>UPDATE PROFILE
-          </button>
-    </fieldset>
-  </form>
-          <form method="POST" action="/profile/<%= id %>/delete">
-            <button class="pure-button">
-              <i class="fas fa-minus-circle"></i>DELETE ACCOUNT
-            </button>
+            <button class="updelbutton">Update Account</button>
+          </fieldset>
         </form>
+        <form method="POST" action="/profile/<%= id %>/delete">
+          <button class="updelbutton">Delete Account</button>
+        </form>
+      </div>
   </body>
 </html>
