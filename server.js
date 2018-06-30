@@ -118,14 +118,16 @@ app.post("/register",(req,res)=>{
   const hash = bcrypt.hashSync(req.body.password, salt);
 
   knex("users")
+  .returning("id")
   .insert({
    email: req.body.email,
    password: hash
   })
-  .returning("id")
   .then((userid) => {
-   req.session.user_id = userid;
-   res.redirect("/");
+    console.log("Did we get here?");
+    console.log(userid)
+    req.session.user_id = userid[0];
+    res.redirect("/");
   })
 })
 
