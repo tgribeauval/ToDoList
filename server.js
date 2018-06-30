@@ -47,6 +47,7 @@ app.use(knexLogger(knex));
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use("/styles", sass({
   src: __dirname + "/styles",
   dest: __dirname + "/public/styles",
@@ -128,7 +129,7 @@ app.get("/delete_item", (req, res)=>{
         if (checkedPassword) {
           req.session.user_id = users[0].id;
           loggedIn = true;
-          res.render("index");
+          res.redirect("/");
         }
       } else {
         res.redirect('/login');
