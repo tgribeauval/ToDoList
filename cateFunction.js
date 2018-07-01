@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 var _ = require('lodash');
+const apiFunctions = require('./apiFunctions')
 const session = require("express-session");
 
 var keyword = {'to_watch': ['watch', 'view', 'attend', 'see'],
@@ -36,7 +37,9 @@ var index = _.remove(res, function(input){
   return input !== toRemove;
 })
 
-AddToCat = index.join(' ')
+AddToCat = index.join(' ');
+
+
 
 
 return [category, AddToCat];

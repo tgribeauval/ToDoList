@@ -18,10 +18,13 @@ const knexLogger  = require('knex-logger');
 const usersRoutes = require("./routes/users");
 const listRoutes = require("./routes/mylist");
 
-const categoryFunc = require('./cateFunction')
+const categoryFunc = require('./cateFunction');
+const apiFunctions = require('./apiFunctions')
 const session     = require("express-session");
 const bcrypt      = require('bcrypt-nodejs');
 const cookieParser = require('cookie-parser');
+//Require API functions
+
 
 
 //Allows to use cookie session
@@ -240,6 +243,29 @@ app.post("/userInput", (req, res) =>{
 
  var uRequest = req.body['userData'];
  var uOutput = categoryFunc.categorizer(uRequest);
+ var apiInfo = '';
+ console.log(uOutput[1],"fjkdsjflksdj")
+ console.log(apiFunctions.MovieAPI("harry potter"), "fksdlfsdfds")
+
+ ///Figuring out which api to use
+
+ if (uOutput[0] === 'to_watch'){
+
+   apiInfo = apiFunctions.MovieAPI(uOutput[1]);
+ }
+ else if (uOutput[0] === 'to_read'){
+   apiInfo = apiFunctions.BookAPI(uOutput[1]);
+ }
+ else if (uOutput[0] === 'to_eat'){
+   apiInfo = apiFunctions.yelpAPI(uOutput[1]);
+ }
+ else if (uOutput[0] === 'to_buy'){
+   apiInfo = apiFunctions.ebayAPI(uOutput[1]);
+ }
+ else {
+     apiInfo = apiFunctions.ebayAPI(uOutput[1]);
+ }
+console.log(apiInfo)
 
  knex('todo').insert({
   user_id: req.session.user_id,

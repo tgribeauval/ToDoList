@@ -43,19 +43,23 @@ $(function() {
 
     var $category = $(`<p>${category}</p>`);
     var $content = $(`
+  <div class="item">
     <div class="dropdown">
       <button class="dropdown-toggle"  data-toggle="dropdown">${content}</button>
-<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-    <li><a href="/update_category?content=${content}&category=to_eat">To eat</a></li>
-    <li><a href="/update_category?content=${content}&category=to_buy">To buy</a></li>
-    <li><a href="/update_category?content=${content}&category=to_watch">To watch</a></li>
-    <li><a href="/update_category?content=${content}&category=to_read">To read</a></li>
-    <li><a href="/update_category?content=${content}&category=other">other</a></li>
-
-    <li role="separator" class="divider"></li>
-    <li><a href="/delete_item?content=${content}">Delete</a></li>
-  </ul>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+        <li><a href="/update_category?content=${content}&category=to_eat">To eat</a></li>
+        <li><a href="/update_category?content=${content}&category=to_buy">To buy</a></li>
+        <li><a href="/update_category?content=${content}&category=to_watch">To watch</a></li>
+        <li><a href="/update_category?content=${content}&category=to_read">To read</a></li>
+        <li><a href="/update_category?content=${content}&category=other">other</a></li>
+        <li role="separator" class="divider"></li>
+        <li><a href="/delete_item?content=${content}">Delete</a></li>
+      </ul>
     </div>
+    <div class="item-description">
+      sdasdasdasdasdsa
+    </div>
+  </div>
     `);
 
     $($article).append($content);
@@ -63,5 +67,9 @@ $(function() {
     return $article
 
   }
+
+
+
+
 
 })
