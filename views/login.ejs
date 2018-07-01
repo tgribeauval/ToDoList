@@ -12,22 +12,26 @@
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
      <script src=“https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js” integrity=“sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa” crossorigin=“anonymous”></script>
+     <link rel="stylesheet" href="/../styles/style.css" type="text/css" />
   </head>
   <body>
     <!-- when user clicks button, populates the login form -->
     <div class="loginbox">
       <form action="/login" method="POST" class="pure-form">
+        <img src="/images/logo.png" class="img-responsive">
         <fieldset>
           <input type="text" class="pure-input-rounded" name="email" placeholder="Email" />
           <input class="pure-input-rounded" type="password" name="password" placeholder ="Password" />
           <div class="buttonpanda">
-            <button class="logregbutton" type="submit">Sign in</button>
+            <button class="logregbutton" type="submit">LOGIN</button>
           </div>
         </fieldset>
-      </form>
-      <div id="panda">
+        <div id="panda">
         <p class="noaccount"> Don't have an account? </p>
-        <button id="showregister"> Sign Up </button>
+        <div class="buttonpanda">
+          <button id="showregister" class="logregbutton" type="submit">SIGN UP</button>
+        </div>
+        <!-- <button id="showregister"> Sign Up </button> -->
         <script>
         $("#showregister").click(function() {
           $(".loginbox").replaceWith($(".registerbox"));
@@ -36,16 +40,60 @@
         });
         </script>
       </div>
+      </form>
+
     </div>
     <!-- when user clicks button, populates a register form -->
     <div class="registerbox">
       <form action="/register" method="POST" class="pure-form">
+        <img src="/images/logo.png" class="img-responsive">
         <fieldset>
           <input type="text" class="pure-input-rounded" name="email" placeholder="Email" />
           <input class="pure-input-rounded" type="password" name="password" placeholder ="Password" />
           <button class="logregbutton" type="submit">Sign Up</button>
         </fieldset>
+         <div id="panda">
+        <p class="noaccount"> Already have an account?</p>
+        <div class="buttonpanda">
+          <button id="showlogin" class="logregbutton" type="submit">LOGIN</button>
+        </div>
+        <!-- <button id="showregister"> Sign Up </button> -->
+        <script>
+        $("#showlogin").click(function() {
+          $(".registerbox").replaceWith($(".loginbox"));
+          $(".registerbox").css('visibility', 'visible');
+          $(".loginbox").css('visibility', 'visible');
+        });
+        </script>
+      </div>
       </form>
      </div>
     </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
