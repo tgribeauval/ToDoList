@@ -25,6 +25,8 @@ const bcrypt      = require('bcrypt-nodejs');
 const cookieParser = require('cookie-parser');
 //Require API functions
 
+const fetch = require('node-fetch');
+
 
 
 //Allows to use cookie session
@@ -243,17 +245,29 @@ app.post("/userInput", (req, res) =>{
 
  var uRequest = req.body['userData'];
  var uOutput = categoryFunc.categorizer(uRequest);
- var apiInfo = '';
- console.log(uOutput[1],"fjkdsjflksdj")
- console.log(apiFunctions.MovieAPI("harry potter"), "fksdlfsdfds")
+ var toGiveURL = uOutput[1]
+
+
 
  ///Figuring out which api to use
 
  if (uOutput[0] === 'to_watch'){
+  fetch(`http://www.omdbapi.com/?apikey=${process.env.MOVIES_API}&t=${toGiveURL}`)
+      .then(res => res.json()).then((json)=>{
+        knex('todo').insert({
+         user_id: req.session.user_id,
+         category: uOutput[0],
+         content: uOutput[1],
+         description: json.Title
+        }).then(()=>{
+         res.redirect('/mylist')
+        })
 
-   apiInfo = apiFunctions.MovieAPI(uOutput[1]);
- }
- else if (uOutput[0] === 'to_read'){
+      }
+        )
+      }
+
+  else if (uOutput[0] === 'to_read'){
    apiInfo = apiFunctions.BookAPI(uOutput[1]);
  }
  else if (uOutput[0] === 'to_eat'){
@@ -265,15 +279,8 @@ app.post("/userInput", (req, res) =>{
  else {
      apiInfo = apiFunctions.ebayAPI(uOutput[1]);
  }
-console.log(apiInfo)
 
- knex('todo').insert({
-  user_id: req.session.user_id,
-  category: uOutput[0],
-  content: uOutput[1]
- }).then(()=>{
-  res.redirect('/mylist')
- })
+
 
 })
 

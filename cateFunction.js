@@ -40,8 +40,6 @@ var index = _.remove(res, function(input){
 AddToCat = index.join(' ');
 
 
-
-
 return [category, AddToCat];
 
 }
