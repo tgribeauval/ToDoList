@@ -98,14 +98,37 @@ app.get("/login", (req, res) => {
 
 app.get("/update_category", (req, res)=>{
 
+  if (req.query.category === 'to_watch'){
+   fetch(`http://www.omdbapi.com/?apikey=${process.env.MOVIES_API}&t=${req.query.content}`)
+       .then(res => res.json()).then((json)=>{
+         knex('todo').where({
+          'user_id': req.session.user_id,
+          'content': req.query.content})
+          .update({
+          category: req.query.category,
+          description: 'Title:' + json.Title,
+          description2: json.Released,
+          description3: json.Metascore,
+          description4: json.Plot
+         }).then(()=>{
+          res.redirect('/mylist')
+         })
+
+       }
+         )
+       }
+
+/*
   knex("todo").where({
     'user_id': req.session.user_id,
     'content': req.query.content
   }).update({
-    'category': req.query.category
-  }).then(()=> {
+    'category': req.query.category,
+
+  }).then((result)=> {
+    console.log(result, "here it is")
     res.redirect("/mylist")
-  })
+  })*/
 
 })
 
@@ -260,7 +283,10 @@ app.post("/userInput", (req, res) =>{
          user_id: req.session.user_id,
          category: uOutput[0],
          content: uOutput[1],
-         description: [json.Title, json.Year, json.Plot]
+         description: 'Title:' + json.Title,
+         description2: json.Released,
+         description3: json.Metascore,
+         description4: json.Plot
         }).then(()=>{
          res.redirect('/mylist')
         })
@@ -274,13 +300,17 @@ app.post("/userInput", (req, res) =>{
           if (json.totalItems === 0){
             return console.log('book not found!')
           }
-          console.log(json.items[0])
+
           knex('todo').insert({
 
            user_id: req.session.user_id,
            category: uOutput[0],
            content: uOutput[1],
-           description: [json.items[0].volumeInfo.title, json.items[0].volumeInfo.authors, json.items[0].volumeInfo.publishedDate]
+           description: json.items[0].volumeInfo.title,
+           description2: json.items[0].volumeInfo.authors[0],
+           description3: json.items[0].volumeInfo.publisher,
+           description4: json.items[0].volumeInfo.publsher
+
           }).then(()=>{
            res.redirect('/mylist')
           })
@@ -315,7 +345,10 @@ app.post("/userInput", (req, res) =>{
        user_id: req.session.user_id,
        category: uOutput[0],
        content: uOutput[1],
-       description: (response.jsonBody.businesses[i].name)
+       description: response.jsonBody.businesses[i].name,
+       description2: response.jsonBody.businesses[i].rating,
+       description3: response.jsonBody.businesses[i].location.display_address[0],
+       description4: response.jsonBody.businesses[i].phone
       }).then(()=>{
        res.redirect('/mylist')
       })
@@ -377,7 +410,10 @@ app.post("/userInput", (req, res) =>{
          user_id: req.session.user_id,
          category: uOutput[0],
          content: uOutput[1],
-         description: items.title
+         description: items.title,
+         description2: items.sellingStatus.currentPrice.amount,
+         description3: items.paymentMethod,
+         description4: items.location
         }).then(()=>{
          res.redirect('/mylist')
         })
