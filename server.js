@@ -106,10 +106,10 @@ app.get("/update_category", (req, res)=>{
           'content': req.query.content})
           .update({
           category: req.query.category,
-          description: 'Title:' + json.Title,
-          description2: json.Released,
-          description3: json.Metascore,
-          description4: json.Plot
+          description: 'Title: ' + json.Title,
+          description2: 'Date Released: ' + json.Released,
+          description3: "METACRITIC score: " + json.Metascore,
+          description4: "Summary: " + json.Plot
          }).then(()=>{
           res.redirect('/mylist')
          })
@@ -118,17 +118,196 @@ app.get("/update_category", (req, res)=>{
          )
        }
 
-/*
-  knex("todo").where({
-    'user_id': req.session.user_id,
-    'content': req.query.content
-  }).update({
-    'category': req.query.category,
+       else if (req.query.category === 'to_read'){
+        fetch(`https://www.googleapis.com/books/v1/volumes?q=${req.query.content}&maxResults=1&projection=lite&key=${process.env.BOOKS_API}`)
+            .then(res => res.json()).then((json)=>{
+              knex('todo').where({
+               'user_id': req.session.user_id,
+               'content': req.query.content})
+               .update({
+               category: req.query.category,
+               description: "Title: " + json.items[0].volumeInfo.title,
+               description2:"Author(s): " + json.items[0].volumeInfo.authors[0],
+               description3: "Publisher: " + json.items[0].volumeInfo.publisher,
+               description4: "Summary: " + json.items[0].volumeInfo.publisher
+              }).then(()=>{
+               res.redirect('/mylist')
+              })
 
-  }).then((result)=> {
-    console.log(result, "here it is")
-    res.redirect("/mylist")
-  })*/
+            }
+              )
+            }
+
+      else if (req.query.category === 'to_eat'){
+
+
+       const client = yelp.client(process.env.YELP_API_KEY);
+       var food = req.query.content;
+
+       client.search({
+         term:food,
+         location: 'montreal, qc',
+         sort_by: 'rating',
+         limit: 1,
+         price: [2,1]
+       }).then(response => {
+         if(response.statusCode !== 200){
+           return console.log("Didnt find a restaurant for", food )
+         }
+
+       if(response.jsonBody.businesses.length === 0){
+         return console.log("Didnt find a restaurant for", food )
+       }
+         for(var i = 0; i<response.jsonBody.businesses.length;i++){
+           console.log((response.jsonBody.businesses[i].name));
+
+           knex('todo').where({
+            'user_id': req.session.user_id,
+            'content': req.query.content})
+            .update({
+            category: req.query.category,
+             description: "Restaurant name: " + response.jsonBody.businesses[i].name,
+             description2: "Yelp Rating: " + response.jsonBody.businesses[i].rating,
+             description3: "Location: " + response.jsonBody.businesses[i].location.display_address[0],
+             description4: "Phone: " + response.jsonBody.businesses[i].phone
+            }).then(()=>{
+           }).then(()=>{
+            res.redirect('/mylist')
+           })
+
+
+         }
+       })
+
+      }
+
+
+      else if (req.query.category === 'to_buy'){
+
+       var params = {
+         keywords: [req.query.content],
+         outputSelector: ['AspectHistogram'],
+         paginationInput: {
+           entriesPerPage: 1
+         },
+
+         itemFilter: [
+           {name: 'FreeShippingOnly', value: true},
+           {name: 'MaxPrice', value: '150'}
+         ],
+
+         itemFilter: [
+           {name: 'FreeShippingOnly', value: true},
+           {name: 'MaxPrice', value: '150'}
+         ],
+
+         domainFilter: [
+           {name: 'domainName', value: 'Digital_Cameras'}
+         ]
+       };
+
+       ebay.xmlRequest({
+           serviceName: 'Finding',
+           opType: 'findItemsByKeywords',
+           appId: process.env.THIERRY_EBAY_KEY,
+           params: params,
+           parser: ebay.parseResponseJson    // (default)
+         },
+         // gets all the items together in a merged array
+         function itemsCallback(error, itemsResponse) {
+           if (error) throw console.log(error);
+
+
+           var items = itemsResponse.searchResult.item;
+
+           if (items === undefined){
+             return console.log("Could not find item:",params.keywords,"on EBAY");
+
+           }
+
+            knex('todo').where({
+            'user_id': req.session.user_id,
+            'content': req.query.content})
+            .update({
+            category: req.query.category,
+             description: "Product Title: " + items.title,
+             description2: "Price: " + items.sellingStatus.currentPrice.amount + "USD",
+             description3: "PaymentMethod: " + items.paymentMethod,
+             description4: "Shipment Location: " + items.location
+            }).then(()=>{
+           }).then(()=>{
+            res.redirect('/mylist')
+           })
+
+         }
+       );
+
+      }
+
+      else if (req.query.category === 'other'){
+
+       var params = {
+         keywords: [req.query.content],
+         outputSelector: ['AspectHistogram'],
+         paginationInput: {
+           entriesPerPage: 1
+         },
+
+         itemFilter: [
+           {name: 'FreeShippingOnly', value: true},
+           {name: 'MaxPrice', value: '150'}
+         ],
+
+         itemFilter: [
+           {name: 'FreeShippingOnly', value: true},
+           {name: 'MaxPrice', value: '150'}
+         ],
+
+         domainFilter: [
+           {name: 'domainName', value: 'Digital_Cameras'}
+         ]
+       };
+
+       ebay.xmlRequest({
+           serviceName: 'Finding',
+           opType: 'findItemsByKeywords',
+           appId: process.env.THIERRY_EBAY_KEY,
+           params: params,
+           parser: ebay.parseResponseJson    // (default)
+         },
+         // gets all the items together in a merged array
+         function itemsCallback(error, itemsResponse) {
+           if (error) throw console.log(error);
+
+
+           var items = itemsResponse.searchResult.item;
+
+           if (items === undefined){
+             return console.log("Could not find item:",params.keywords,"on EBAY");
+
+           }
+
+            knex('todo').where({
+            'user_id': req.session.user_id,
+            'content': req.query.content})
+            .update({
+            category: req.query.category,
+             description: "Product Title: " + items.title,
+             description2: "Price: " + items.sellingStatus.currentPrice.amount + "USD",
+             description3: "PaymentMethod: " + items.paymentMethod,
+             description4: "Shipment Location: " + items.location
+            }).then(()=>{
+           }).then(()=>{
+            res.redirect('/mylist')
+           })
+
+         }
+       );
+
+      }
+
+
+
 
 })
 
@@ -243,7 +422,7 @@ app.post("/profile/:id/delete", (req, res) => {
   knex
     ("users")
     .del()
-    .where("id", Number(req.params.id))
+    .where("email", Number(req.body.email))
     // console.log("Email", email)
     // console.log("password", password)
     // console.log("RBE", req.body.email)
@@ -283,10 +462,10 @@ app.post("/userInput", (req, res) =>{
          user_id: req.session.user_id,
          category: uOutput[0],
          content: uOutput[1],
-         description: 'Title:' + json.Title,
-         description2: json.Released,
-         description3: json.Metascore,
-         description4: json.Plot
+         description: 'Title: ' + json.Title,
+         description2: 'Date Released: ' + json.Released,
+         description3: "METACRITIC score: " + json.Metascore,
+         description4: "Summary: " + json.Plot
         }).then(()=>{
          res.redirect('/mylist')
         })
@@ -306,10 +485,10 @@ app.post("/userInput", (req, res) =>{
            user_id: req.session.user_id,
            category: uOutput[0],
            content: uOutput[1],
-           description: json.items[0].volumeInfo.title,
-           description2: json.items[0].volumeInfo.authors[0],
-           description3: json.items[0].volumeInfo.publisher,
-           description4: json.items[0].volumeInfo.publsher
+           description: "Title: " + json.items[0].volumeInfo.title,
+           description2:"Author(s): " + json.items[0].volumeInfo.authors[0],
+           description3: "Publisher: " + json.items[0].volumeInfo.publisher,
+           description4: "Summary: " + json.items[0].volumeInfo.publisher
 
           }).then(()=>{
            res.redirect('/mylist')
@@ -345,10 +524,10 @@ app.post("/userInput", (req, res) =>{
        user_id: req.session.user_id,
        category: uOutput[0],
        content: uOutput[1],
-       description: response.jsonBody.businesses[i].name,
-       description2: response.jsonBody.businesses[i].rating,
-       description3: response.jsonBody.businesses[i].location.display_address[0],
-       description4: response.jsonBody.businesses[i].phone
+       description: "Restaurant name: " + response.jsonBody.businesses[i].name,
+       description2: "Yelp Rating: " + response.jsonBody.businesses[i].rating,
+       description3: "Location: " + response.jsonBody.businesses[i].location.display_address[0],
+       description4: "Phone: " + response.jsonBody.businesses[i].phone
       }).then(()=>{
        res.redirect('/mylist')
       })
@@ -402,18 +581,15 @@ app.post("/userInput", (req, res) =>{
       }
 
 
-
-
-
         knex('todo').insert({
 
          user_id: req.session.user_id,
          category: uOutput[0],
          content: uOutput[1],
-         description: items.title,
-         description2: items.sellingStatus.currentPrice.amount,
-         description3: items.paymentMethod,
-         description4: items.location
+         description: "Product Title: " + items.title,
+         description2: "Price: " + items.sellingStatus.currentPrice.amount + "USD",
+         description3: "PaymentMethod: " + items.paymentMethod,
+         description4: "Shipment Location: " + items.location
         }).then(()=>{
          res.redirect('/mylist')
         })
@@ -422,7 +598,66 @@ app.post("/userInput", (req, res) =>{
   );
 
  }
+
  else {
+
+  var params = {
+    keywords: [uOutput[1]],
+    outputSelector: ['AspectHistogram'],
+    paginationInput: {
+      entriesPerPage: 1
+    },
+
+    itemFilter: [
+      {name: 'FreeShippingOnly', value: true},
+      {name: 'MaxPrice', value: '150'}
+    ],
+
+    itemFilter: [
+      {name: 'FreeShippingOnly', value: true},
+      {name: 'MaxPrice', value: '150'}
+    ],
+
+    domainFilter: [
+      {name: 'domainName', value: 'Digital_Cameras'}
+    ]
+  };
+
+  ebay.xmlRequest({
+      serviceName: 'Finding',
+      opType: 'findItemsByKeywords',
+      appId: process.env.THIERRY_EBAY_KEY,
+      params: params,
+      parser: ebay.parseResponseJson    // (default)
+    },
+    // gets all the items together in a merged array
+    function itemsCallback(error, itemsResponse) {
+      if (error) throw console.log(error);
+
+
+      var items = itemsResponse.searchResult.item;
+
+      if (items === undefined){
+        return console.log("Could not find item:",params.keywords,"on EBAY");
+
+      }
+
+
+        knex('todo').insert({
+
+         user_id: req.session.user_id,
+         category: uOutput[0],
+         content: uOutput[1],
+         description: "Product Title: " + items.title,
+         description2: "Price: " + items.sellingStatus.currentPrice.amount + "USD",
+         description3: "PaymentMethod: " + items.paymentMethod,
+         description4: "Shipment Location: " + items.location
+        }).then(()=>{
+         res.redirect('/mylist')
+        })
+
+    }
+  );
 
  }
 
