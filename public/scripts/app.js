@@ -16,7 +16,7 @@ $(function() {
         var createdEl = createElement(element);
 
         if (element.category === 'to_watch'){
-          $('.movies').append(createdEl)
+          $('#movies').append(createdEl)
         }
         else if (element.category === 'to_read'){
           $('.books').append(createdEl)
@@ -55,7 +55,7 @@ $(function() {
 
 
   <div class="item">
-    <div class="dropdown">
+    <div class="btn-group dropleft">
       <button class="dropdown-toggle"  data-toggle="dropdown">${content}</button>
       <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
         <li><a href="/update_category?content=${content}&category=to_eat&oldcategory=${category}&description3=${description3}&description4=${description4}&description=${description}">To eat</a></li>
