@@ -4,7 +4,7 @@ $(function() {
 
   LoadList();
 
-  console.log("got here")
+
   function LoadList(){
     $.ajax({
       method:"GET",
@@ -40,27 +40,44 @@ $(function() {
     var $article = $('<article>');
     var category = obj.category;
     var content = obj.content;
+    var description = obj.description;
+    var description2 = obj.description2;
+    var description3 = obj.description3;
+    var description4 = obj.description4;
+    console.log(description)
 
-    var $category = $(`<p>${category}</p>`);
+
+
+
+
+    var $description = $(`<p>${category}</p>`);
     var $content = $(`
-    <div class="item">
+
+
+  <div class="item">
     <div class="dropdown">
       <button class="dropdown-toggle"  data-toggle="dropdown">${content}</button>
-<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-    <li><a href="/update_category?content=${content}&category=to_eat">To eat</a></li>
-    <li><a href="/update_category?content=${content}&category=to_buy">To buy</a></li>
-    <li><a href="/update_category?content=${content}&category=to_watch">To watch</a></li>
-    <li><a href="/update_category?content=${content}&category=to_read">To read</a></li>
-    <li><a href="/update_category?content=${content}&category=other">other</a></li>
-
-    <li role="separator" class="divider"></li>
-    <li><a href="/delete_item?content=${content}">Delete</a></li>
-  </ul>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+        <li><a href="/update_category?content=${content}&category=to_eat&oldcategory=${category}&description3=${description3}&description4=${description4}&description=${description}">To eat</a></li>
+        <li><a href="/update_category?content=${content}&category=to_buy&oldcategory=${category}&description3=${description3}&description4=${description4}&description=${description}">To buy</a></li>
+        <li><a href="/update_category?content=${content}&category=to_watch&oldcategory=${category}&description3=${description3}&description4=${description4}&description=${description}">To watch</a></li>
+        <li><a href="/update_category?content=${content}&category=to_read&oldcategory=${category}&description3=${description3}&description4=${description4}&description=${description}">To read</a></li>
+        <li><a href="/update_category?content=${content}&category=other&oldcategory=${category}&description3=${description3}&description4=${description4}&description=${description}">other</a></li>
+        <li role="separator" class="divider"></li>
+        <li><a href="/delete_item?content=${content}">Delete</a></li>
+      </ul>
     </div>
     <div class="item-description">
-      <p>This is empty space</p>
+
+      <li>${description}</li>
+      <li>${description2}</li>
+      <li>${description3}</li>
+      <li>${description4}</li>
+
     </div>
+
     </div>
+
     `);
 
     $($article).append($content);
@@ -68,5 +85,9 @@ $(function() {
     return $article
 
   }
+
+
+
+
 
 })
