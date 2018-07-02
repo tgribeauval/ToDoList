@@ -4,7 +4,7 @@ $(function() {
 
   LoadList();
 
-  console.log("got here")
+
   function LoadList(){
     $.ajax({
       method:"GET",
@@ -40,8 +40,12 @@ $(function() {
     var $article = $('<article>');
     var category = obj.category;
     var content = obj.content;
+    var description = obj.description;
+    console.log(description)
 
-    var $category = $(`<p>${category}</p>`);
+
+
+    var $description = $(`<p>${category}</p>`);
     var $content = $(`
   <div class="item">
     <div class="dropdown">
@@ -57,7 +61,7 @@ $(function() {
       </ul>
     </div>
     <div class="item-description">
-      sdasdasdasdasdsa
+      <p>${description}</p>
     </div>
   </div>
     `);
