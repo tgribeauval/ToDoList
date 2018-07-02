@@ -214,11 +214,9 @@ app.post("/profile/:id/delete", (req, res) => {
   knex
     ("users")
     .del()
-    .where("id", Number(req.params.id))
-    // console.log("Email", email)
-    // console.log("password", password)
-    // console.log("RBE", req.body.email)
-    //   console.log("RBP", req.body.password)
+    .where("email", req.body.email)
+    console.log("Email", email)
+    console.log("RBE", req.body.email)
     .then((users) => {
 
     res.status(301).redirect("/login");

@@ -43,6 +43,7 @@ $(function() {
 
     var $category = $(`<p>${category}</p>`);
     var $content = $(`
+    <div class="item">
     <div class="dropdown">
       <button class="dropdown-toggle"  data-toggle="dropdown">${content}</button>
 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
@@ -55,6 +56,10 @@ $(function() {
     <li role="separator" class="divider"></li>
     <li><a href="/delete_item?content=${content}">Delete</a></li>
   </ul>
+    </div>
+    <div class="item-description">
+      <p>This is empty space</p>
+    </div>
     </div>
     `);
 

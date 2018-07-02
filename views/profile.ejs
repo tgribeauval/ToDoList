@@ -1,17 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Profile Page</title>
-    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
-    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
-    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous"> <!--pure CSS -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous"> <!--Font Awesome Icons -->
-    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-    <script type="text/javascript" src="/scripts/app.js"></script>
-
-  </head>
-  <body>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>PROFILE PAGE</title>
+  <!--NORMALIZE CSS-->
+  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+  <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+   <script type="text/javascript" src="/scripts/app.js"></script>
+   <!-- Font Awesome -->
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+   <!-- Pure CSS -->
+   <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- Material Design Bootstrap -->
+    <link href="css/mdb.min.css" rel="stylesheet">
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="/styles/style.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/profile.css" type="text/css" />
+</head>
+<body>
+  <header>
     <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -26,9 +41,6 @@
         <div class="collapse navbar-collapse" id="myNavbar">
           <ul class="nav navbar-nav navbar-right">
             <li><a href ="/mylist">TO-DO LIST</a></li>
-            <li><a href="#about">ABOUT</a></li>
-            <li><a href="/profile">PROFILE</a></li>
-            <li><a href="#contact">CONTACT US</a></li>
             <li class="nav-item">
               <a class="btn mr-2 btn-light" id="buy-button" href="/login">LOGOUT</a>
             </li>
@@ -36,18 +48,143 @@
         </div>
       </div>
     </nav>
-    <div id="overlay"></div>
-      <div class="myprofilebox">
-        <form class="pure-form" method="POST" action="/profile/<%= id %>">
-          <fieldset>
-            <input type="text" class="pure-input-rounded" name="email" placeholder="Email" />
-            <input class="pure-input-rounded" type="password" name="password" placeholder ="Password" />
-            <button class="updelbutton">Update Account</button>
-          </fieldset>
-        </form>
-        <form method="POST" action="/profile/<%= id %>/delete">
-          <button class="updelbutton">Delete Account</button>
-        </form>
-      </div>
-  </body>
+  </header>
+
+
+    <div class="jumbotron text-center">
+        <img src="/images/logo.png" class="img-responsive profileImg">
+          <div class="row pt-5 mt-3">
+            <div class="col-md-12">
+              <h1 class="h1-reponsive mb-2 black-text"><strong>Profile Page</strong></h1>
+              <hr>
+              <h5 class="mb-4 black-text"><strong>Update your account</strong></h5>
+              <a href="#loginbox"class="btn btn-outline-white" ripple-radius>UPDATE ACCOUNT</a>
+              <a  href="/mylist" class="btn btn-outline-white" ripple-radius>VIEW TO-DO LIST</a>
+              <a href="#loginbox"> <button id="showDelete" class="btn btn-outline-white" ripple-radius>DELETE ACCOUNT</button></a>
+
+            </div>
+          </div>
+    </div>
+        <div class="container">
+        <div id="loginbox" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+            <div class="panel panel-info" >
+                    <div class="panel-heading">
+                        <div id="updateForm" class="panel-title">Update your account</div>
+                    </div>
+
+                    <div style="padding-top:30px" class="panel-body" >
+
+                        <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+
+                        <form id="loginform" class="updateBox form-horizontal" role="form">
+
+                            <div style="margin-bottom: 25px" class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                        <input id="login-username" type="text" class="form-control" name="username" value="" placeholder="EMAIL">
+                                    </div>
+
+                            <div style="margin-bottom: 25px" class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                        <input id="login-password" type="password" class="form-control" name="password" placeholder="PASSWORD">
+                                    </div>
+
+                                <div style="margin-top:10px" class="form-group">
+                                    <!-- Button -->
+
+                                    <div class="col-sm-12 controls">
+                                      <form method="POST" action="/profile/<%= id %>">
+                                        <a id="btn-login" href="#" class="btn btn-success">UPDATE  </a>
+                                      </form>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                  </div>
+
+                  <div id="loginbox" class="deleteForm mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                    <div class="panel panel-info" >
+                    <div class="panel-heading">
+                        <div class="panel-title">Delete your account</div>
+                    </div>
+
+                    <div style="padding-top:30px" class="panel-body" >
+
+                        <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+
+
+                        <form method="POST" action="/profile/<%= id %>/delete" id="form" class="deleteBox form-horizontal" role="form">
+
+                            <div style="margin-bottom: 25px" class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                        <input id="login-username" type="text" class="form-control" name="username" value="" placeholder="EMAIL">
+                                    </div>
+
+                            <div style="margin-bottom: 25px" class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                        <input id="login-password" type="password" class="form-control" name="password" placeholder="PASSWORD">
+                                    </div>
+
+                                <div style="margin-top:10px" class="form-group">
+                                    <!-- Button -->
+
+                                    <div class="col-sm-12 controls">
+                                      <form method="POST" action="/profile/<%= id %>">
+                                        <a id="btn-login" href="#" class="btn btn-success">DELETE  </a>
+                                      </form>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+
+
+
+
+
+
+
+
+  <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="js/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="js/mdb.min.js"></script>
+
+</body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
