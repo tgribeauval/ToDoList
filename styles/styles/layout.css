@@ -1,90 +1,64 @@
 body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Open Sans', sans-serif;
-    z-index: -10;
+  margin: 0;
+  padding: 0;
+  font-family: 'Open Sans', sans-serif;
+  z-index: -10;
 }
-
 
 #overlay {
-    position: absolute;
-    z-index: -5;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    bottom: 0;
-
+  position: absolute;
+  z-index: -5;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  bottom: 0;
 }
-
-.logo1 {
-
-  height: 35%;
-  weight: 35%;
-}
-
-.logo2 {
-
-  height: 35%;
-  weight: 35%;
-}
-
-.loginform {
-
-}
-
-.fuckitall {
-
-}
-
-.buttonpanda {
-
-height: 50px;
- }
 
 .myprofilebox {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    width: 340px;
-    height: 380px;
-    color: #000;
-    top: 50%;
-    left: 50%;
-    padding: 60px 30px;
-    position: absolute;
-    transform: translate(-50%,  -50%);
-    box-sizing: border-box;
-    border-radius: 3%;
-    box-shadow: 8px 8px 50px #000;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 340px;
+  height: 380px;
+  color: #000;
+  top: 50%;
+  left: 50%;
+  padding: 60px 30px;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  box-sizing: border-box;
+  border-radius: 3%;
+  box-shadow: 8px 8px 50px #000;
 }
 
 .myprofilebox input {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    width: 100%;
-    margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 20px;
 }
 
-.myprofilebox input[type="text"], input[type="password"]{
-
-    border-bottom: 1px solid #bdc3c7;
-    background: transparent;
-    outline: none;
-    height: 40px;
-    font-size: 16px;
-    opacity: 1;
-    color: black;
+.myprofilebox input[type="text"], input[type="password"] {
+  border: 1px solid black;
+  border-bottom: 1px solid #bdc3c7;
+  background: transparent;
+  outline: none;
+  height: 40px;
+  font-size: 16px;
+  opacity: 1;
+  color: black;
 }
 
 .myprofilebox input[type="text"]:hover, input[type="password"]:hover {
   background: #edf3ff;
 }
+
 .myprofilebox p {
-    margin: 0;
-    padding: 0;
-    font-weight: bold;
-    font-size: 13px;
+  margin: 0;
+  padding: 0;
+  font-weight: bold;
+  font-size: 13px;
 }
 
 .updelbutton {
@@ -100,13 +74,14 @@ height: 50px;
   border-radius: 80px;
   font-family: 'Open Sans', sans-serif;
 }
+
 .updelbutton:hover {
   cursor: pointer;
   background: #1A4674;
   color: #fff;
 }
-.loginbox {
 
+.loginbox {
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -124,7 +99,7 @@ height: 50px;
   visibility: visible;
 }
 
-.loginbox input{
+.loginbox input {
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -132,8 +107,8 @@ height: 50px;
   margin-bottom: 20px;
 }
 
-.loginbox input[type="text"], input[type="password"]{
-
+.loginbox input[type="text"], input[type="password"] {
+  border: 1px solid black;
   border-bottom: 1px solid #bdc3c7;
   background: transparent;
   outline: none;
@@ -158,13 +133,12 @@ height: 50px;
   left: 50%;
   padding: 60px 30px;
   position: absolute;
-  transform: translate(-50%,  -50%);
+  transform: translate(-50%, -50%);
   box-sizing: border-box;
   border-radius: 3%;
   box-shadow: 8px 8px 50px #000;
   visibility: hidden;
 }
-
 
 .newregisterbox {
   display: flex;
@@ -177,30 +151,30 @@ height: 50px;
   left: 50%;
   padding: 60px 30px;
   position: absolute;
-  transform: translate(-50%,  -50%);
+  transform: translate(-50%, -50%);
   box-sizing: border-box;
   border-radius: 3%;
   box-shadow: 8px 8px 50px #000;
   visibility: visible;
 }
 
-.registerbox input{
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    width: 100%;
-    margin-bottom: 20px;
+.registerbox input {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 20px;
 }
 
-.registerbox input[type="text"], input[type="password"]{
-
-    border-bottom: 1px solid #bdc3c7;
-    background: transparent;
-    outline: none;
-    height: 40px;
-    font-size: 16px;
-    opacity: 1;
-    color: black;
+.registerbox input[type="text"], input[type="password"] {
+  border: 1px solid black;
+  border-bottom: 1px solid #bdc3c7;
+  background: transparent;
+  outline: none;
+  height: 40px;
+  font-size: 16px;
+  opacity: 1;
+  color: black;
 }
 
 .registerbox input[type="text"]:hover, input[type="password"]:hover {
@@ -208,7 +182,9 @@ height: 50px;
 }
 
 .logregbutton {
-  margin-left: 55px;
+  margin-top: 112px;
+  margin-left: 65px;
+  margin-bottom: 15px;
   border: none;
   outline: none;
   height: 40px;
@@ -222,52 +198,36 @@ height: 50px;
 }
 
 .logregbutton:hover {
-      cursor: pointer;
-      background: #1A4674;
-      color: #fff;
+  cursor: pointer;
+  background: #1A4674;
+  color: #fff;
 }
 
 #panda {
   display: flex;
   justify-content: center;
   flex-direction: row;
-
-
 }
+
 .noaccount {
-
-   margin: auto;
-      font-size: 15px;
-      color: #676d77;
-      opacity: 0.5;
-       margin-right: 10px;
+  margin: auto;
+  font-size: 15px;
+  color: #676d77;
+  opacity: 0.5;
+  margin-right: 10px;
 }
-#showregister {
 
+#showregister {
   border: none;
   background-color: transparent;
   display: flex;
   align-items: center;
-
-      font-size: 18px;
-      text-decoration: none;
-      color: #aac4f7;
-      // opacity: 0.8;
+  font-size: 18px;
+  text-decoration: none;
+  color: #aac4f7;
 }
 
 #showregister:hover {
-    text-decoration: underline;
-    font-weight: bold;
-}
-
-#showlogin {
- margin-top: 15px;
- border: 1px solid red;
- border: none;
- background-color: transparent;
- display: flex;
- align-items: center;
- font-size: 18px;
- text-decoration: none;
- color: #aac4f7;
+  text-decoration: underline;
+  font-weight: bold;
 }

@@ -1,0 +1,126 @@
+.jumbotron {
+  background-color: #fff;
+  color: black;
+  padding: 100px 25px;
+}
+.jumbotron img {
+  margin: auto;
+}
+.navbar {
+margin-bottom: 0;
+background-color: #000;
+z-index: 9999;
+border: 0;
+font-size: 14px;
+line-height: 1.42857143;
+letter-spacing: 4px;
+border-radius: 0;
+}
+.navbar li a, .navbar .navbar-brand {
+  color: #fff;
+}
+.navbar li a:hover, .navbar-nav li.active a {
+  color: #000;
+  background-color: #fff;
+}
+.navbar-default .navbar-toggle {
+  border-color: transparent;
+  color: red;
+}
+.navbar-right a{
+  color: #fff;
+}
+.logo-small {
+  font-size: 50px;
+}
+.btn-sample {
+  color: #ffffff;
+  background-color: #000;
+  border-color: #FFF;
+  width: 200px;
+  height: 60px;
+  border-radius: 5%;
+}
+.btn-sample:hover,
+.btn-sample:focus {
+  background-color: #808080;
+}
+#contact {
+  margin-top: 15%;
+}
+footer {
+  margin-top: 15%;
+  background-color: #000;
+  width: 100%;
+  border-top-radius: 10%;
+}
+footer p {
+  margin: 15px;
+  color: #fff;
+  font-size: 14px;
+  line-height: 1.42857143;
+  letter-spacing: 4px;
+}
+
+/***** LOGIN PAGE *****/
+.bg {
+  background-image: url("../images/rawpixel-603653-unsplash.jpg");
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+body, html {
+  height: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
