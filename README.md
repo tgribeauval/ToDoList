@@ -11,7 +11,37 @@ Lets take Harry Potter as an example. If you want to watch it, type in "watch Ha
 
 
 # FINAL PRODUCT
- 
+!["Showing main page"](https://github.com/zhassan2018/ToDoList/blob/master/styles/styles/img/todo1.png)
+!["Showing lists"](https://github.com/zhassan2018/ToDoList/blob/master/styles/styles/img/todo2.png)
+!["Showing example of description of items"](https://github.com/zhassan2018/ToDoList/blob/master/styles/styles/img/todo3.png)
+!["Showing option to manually change category"](https://github.com/zhassan2018/ToDoList/blob/master/styles/styles/img/todo4.png)
+!["Showing changed category"](https://github.com/zhassan2018/ToDoList/blob/master/styles/styles/img/todo5.png)
+
+#BEFORE STARTING
+- Install all dependencies using npm i in your terminal.
+- You will need to get api keys from OMDb, yelp, google and ebay.
+- Using the .env.example file as an example, create a .env file.
+- Run knex migrate:latest to create necessary tables in database.
+- To run the app, use command npm run local and visit http://localhost:8080.
+
+#DEPENDENCIES
+- Node.js
+- Express
+- EJS
+- bcrypt
+- body-parser
+- cookie-session
+- yelp-fusion
+- node-fetch
+- ebay-api
+- Knex
+-
+
+
+
+
+
+
 
 
 
