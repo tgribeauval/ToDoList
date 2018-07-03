@@ -19,16 +19,16 @@ $(function() {
           $('#movies').append(createdEl)
         }
         else if (element.category === 'to_read'){
-          $('.books').append(createdEl)
+          $('#books').append(createdEl)
         }
         else if (element.category === 'to_buy'){
-          $('.products').append(createdEl)
+          $('#products').append(createdEl)
         }
         else if (element.category === 'to_eat'){
-          $('.food').append(createdEl)
+          $('#food').append(createdEl)
         }
         else{
-          $('.other').append(createdEl)
+          $('#other').append(createdEl)
         }
 
 
