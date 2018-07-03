@@ -56,8 +56,8 @@ $(function() {
 
   <div class="item">
     <div class="btn-group dropleft">
-      <button class="dropdown-toggle"  data-toggle="dropdown">${content}</button>
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+      <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-toggle="dropdown">${content}</button>
+      <ul class="dropdown-menu"  aria-labelledby="dropdownMenu1">
         <li><a href="/update_category?content=${content}&category=to_eat&oldcategory=${category}&description3=${description3}&description4=${description4}&description=${description}">To eat</a></li>
         <li><a href="/update_category?content=${content}&category=to_buy&oldcategory=${category}&description3=${description3}&description4=${description4}&description=${description}">To buy</a></li>
         <li><a href="/update_category?content=${content}&category=to_watch&oldcategory=${category}&description3=${description3}&description4=${description4}&description=${description}">To watch</a></li>
