@@ -68,11 +68,13 @@ $(function() {
       </ul>
     </div>
     <div class="item-description">
+    <ul class="item-description-list">
 
       <li>${description}</li>
       <li>${description2}</li>
       <li>${description3}</li>
       <li>${description4}</li>
+      </ul>
 
     </div>
 
@@ -85,9 +87,5 @@ $(function() {
     return $article
 
   }
-
-
-
-
 
 })
