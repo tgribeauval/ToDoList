@@ -16,19 +16,19 @@ $(function() {
         var createdEl = createElement(element);
 
         if (element.category === 'to_watch'){
-          $('.movies').append(createdEl)
+          $('#movies').append(createdEl)
         }
         else if (element.category === 'to_read'){
-          $('.books').append(createdEl)
+          $('#books').append(createdEl)
         }
         else if (element.category === 'to_buy'){
-          $('.products').append(createdEl)
+          $('#products').append(createdEl)
         }
         else if (element.category === 'to_eat'){
-          $('.food').append(createdEl)
+          $('#food').append(createdEl)
         }
         else{
-          $('.other').append(createdEl)
+          $('#other').append(createdEl)
         }
 
 
@@ -56,6 +56,8 @@ $(function() {
 
   <div class="item">
     <div class="btn-group drop-left">
+    <div class="btn-group dropleft">
+
       <button class="dropdown-toggle"  data-toggle="dropdown">${content}</button>
       <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
         <li><a href="/update_category?content=${content}&category=to_eat&oldcategory=${category}&description3=${description3}&description4=${description4}&description=${description}">To eat</a></li>
@@ -68,11 +70,13 @@ $(function() {
       </ul>
     </div>
     <div class="item-description">
+    <ul class="item-description-list">
 
       <li>${description}</li>
       <li>${description2}</li>
       <li>${description3}</li>
       <li>${description4}</li>
+      </ul>
 
     </div>
 
@@ -85,9 +89,5 @@ $(function() {
     return $article
 
   }
-
-
-
-
 
 })
